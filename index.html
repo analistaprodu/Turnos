@@ -79,12 +79,12 @@
     flex-shrink: 0;
   }
 
-  .topbar-left h1 { font-size: 20px; font-weight: 600; color: #1a1a2e; }
-  .topbar-left .sub { font-size: 12px; color: #999; margin-top: 1px; }
+  .topbar-left h1 { font-size: 28px; font-weight: 700; color: #1a1a2e; }
+  .topbar-left .sub { font-size: 17px; color: #555; margin-top: 3px; font-weight: 500; }
 
   .topbar-right { display:flex; align-items:center; gap:16px; }
-  .update-info { font-size: 13px; color: #aaa; }
-  .btn-editar { background:#eff6ff; color:#2563eb; border:1.5px solid #bfdbfe; border-radius:8px; font-size:13px; font-weight:600; padding:7px 16px; cursor:pointer; }
+  .update-info { font-size: 17px; color: #555; }
+  .btn-editar { background:#eff6ff; color:#2563eb; border:1.5px solid #bfdbfe; border-radius:8px; font-size:16px; font-weight:700; padding:10px 22px; cursor:pointer; }
   .btn-editar:hover { background:#dbeafe; }
 
   /* ── SECTOR INDICATOR ───────────────────────────── */
@@ -99,13 +99,13 @@
   }
 
   .sector-pill {
-    padding: 5px 16px;
+    padding: 7px 22px;
     border-radius: 20px;
-    font-size: 13px;
+    font-size: 17px;
     font-weight: 600;
     cursor: pointer;
     border: 1.5px solid transparent;
-    color: #aaa;
+    color: #888;
     background: transparent;
   }
   .sector-pill.active {
@@ -117,7 +117,7 @@
   .progress-wrap { flex:1; height:4px; background:#e4e6ea; border-radius:2px; overflow:hidden; }
   .progress-bar { height:100%; background:#2563eb; border-radius:2px; transition: width 0.1s linear; }
 
-  .sector-timer { font-size:12px; color:#bbb; min-width:32px; text-align:right; }
+  .sector-timer { font-size:16px; color:#888; min-width:36px; text-align:right; font-weight:600; }
 
   /* ── MAIN CONTENT ───────────────────────────────── */
   .main {
@@ -130,17 +130,17 @@
   }
 
   .sector-title {
-    font-size: 28px;
+    font-size: 38px;
     font-weight: 700;
     color: #1a1a2e;
     letter-spacing: -0.5px;
   }
 
   .sector-title span {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 400;
-    color: #aaa;
-    margin-left: 10px;
+    color: #666;
+    margin-left: 14px;
     letter-spacing: 0;
   }
 
@@ -171,12 +171,12 @@
   .card-noche::after  { background: #7c3aed; }
   .card-total::after  { background: #059669; }
 
-  .card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #aaa; margin-bottom: 3px; }
-  .card-nombre { font-size: 17px; font-weight: 600; color: #444; margin-bottom: 2px; }
-  .card-horario { font-size: 12px; color: #bbb; margin-bottom: 1.25rem; }
+  .card-label { font-size: 15px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #777; margin-bottom: 3px; }
+  .card-nombre { font-size: 24px; font-weight: 600; color: #333; margin-bottom: 2px; }
+  .card-horario { font-size: 17px; color: #888; margin-bottom: 1.25rem; }
 
   .card-valor {
-    font-size: 64px;
+    font-size: 82px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -2px;
@@ -186,21 +186,21 @@
   .card-noche  .card-valor { color: #7c3aed; }
   .card-total  .card-valor { color: #059669; }
 
-  .card-unit { font-size: 16px; color: #bbb; margin-top: 4px; margin-bottom: 1rem; }
+  .card-unit { font-size: 20px; color: #888; margin-top: 4px; margin-bottom: 1rem; }
 
-  .pct-row { display:flex; justify-content:space-between; font-size:13px; color:#aaa; margin-bottom:6px; }
-  .pct-row strong { font-size:15px; font-weight:700; color:#555; }
-  .bar { height:6px; background:#f0f2f5; border-radius:3px; overflow:hidden; }
-  .bar-fill { height:100%; border-radius:3px; }
+  .pct-row { display:flex; justify-content:space-between; font-size:16px; color:#777; margin-bottom:6px; }
+  .pct-row strong { font-size:18px; font-weight:700; color:#444; }
+  .bar { height:8px; background:#e8eaed; border-radius:4px; overflow:hidden; }
+  .bar-fill { height:100%; border-radius:4px; }
   .card-manana .bar-fill { background:#2563eb; }
   .card-noche  .bar-fill { background:#7c3aed; }
   .card-total  .bar-fill { background:#059669; }
 
-  .badge { display:inline-block; font-size:12px; font-weight:700; padding:4px 12px; border-radius:20px; margin-top:10px; }
+  .badge { display:inline-block; font-size:15px; font-weight:700; padding:5px 14px; border-radius:20px; margin-top:10px; }
   .badge-win { background:#d1fae5; color:#065f46; }
   .badge-ok  { background:#dbeafe; color:#1e40af; }
   .badge-low { background:#fee2e2; color:#991b1b; }
-  .badge-na  { background:#f0f2f5; color:#aaa; }
+  .badge-na  { background:#f0f2f5; color:#888; }
 
   /* ── FILA INFERIOR ──────────────────────────────── */
   .bottom-row {
@@ -220,10 +220,10 @@
     flex-direction: column;
   }
 
-  .chart-card-title { font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#bbb; margin-bottom:10px; }
+  .chart-card-title { font-size:15px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#888; margin-bottom:10px; }
 
   .legend { display:flex; gap:16px; margin-bottom:10px; }
-  .legend span { display:flex; align-items:center; gap:5px; font-size:13px; color:#888; }
+  .legend span { display:flex; align-items:center; gap:6px; font-size:16px; color:#666; }
   .legend-sq { width:11px; height:11px; border-radius:2px; }
 
   .chart-wrap { position:relative; flex:1; min-height:0; }
@@ -247,9 +247,9 @@
   }
   .ritmo-row:last-child { border-bottom: none; }
 
-  .ritmo-label { font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#bbb; margin-bottom:4px; }
-  .ritmo-valor { font-size:32px; font-weight:700; line-height:1; }
-  .ritmo-sub { font-size:12px; color:#bbb; margin-top:3px; }
+  .ritmo-label { font-size:14px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#777; margin-bottom:4px; }
+  .ritmo-valor { font-size:42px; font-weight:700; line-height:1; }
+  .ritmo-sub { font-size:15px; color:#888; margin-top:3px; }
 
   .ritmo-manana .ritmo-valor { color:#2563eb; }
   .ritmo-noche  .ritmo-valor { color:#7c3aed; }

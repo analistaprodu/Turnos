@@ -197,10 +197,11 @@
   .card-total  .bar-fill { background:#059669; }
 
   .badge { display:inline-block; font-size:15px; font-weight:700; padding:5px 14px; border-radius:20px; margin-top:10px; }
-  .badge-win { background:#d1fae5; color:#065f46; }
-  .badge-ok  { background:#dbeafe; color:#1e40af; }
-  .badge-low { background:#fee2e2; color:#991b1b; }
-  .badge-na  { background:#f0f2f5; color:#888; }
+  .badge-win  { background:#d1fae5; color:#065f46; }
+  .badge-high { background:#dbeafe; color:#1e40af; }
+  .badge-mid  { background:#fef9c3; color:#854d0e; }
+  .badge-low  { background:#fee2e2; color:#991b1b; }
+  .badge-na   { background:#f0f2f5; color:#888; }
 
   /* ── FILA INFERIOR ──────────────────────────────── */
   .bottom-row {
@@ -393,9 +394,10 @@ let sectorActual = 0;
 let editorSector = 0;
 
 // Cargar localStorage
+let horaGuardado = '';
 try {
   const s = localStorage.getItem('prod-datos');
-  if (s) { const p = JSON.parse(s); datos = p.datos || {}; fechaGlobal = p.fecha || ''; }
+  if (s) { const p = JSON.parse(s); datos = p.datos || {}; fechaGlobal = p.fecha || ''; horaGuardado = p.hora || ''; }
 } catch(e) {}
 
 // ── ROTACIÓN ─────────────────────────────────────────
@@ -567,16 +569,18 @@ function renderSector() {
   });
 
   // Update info
-  const ahora = new Date();
   document.getElementById('update-info').textContent =
-    fechaGlobal
-      ? 'Datos de ' + fechaGlobal + ' · Cargado ' + ahora.toLocaleTimeString('es-PY', {hour:'2-digit', minute:'2-digit'})
-      : 'Sin datos cargados';
+    fechaGlobal && horaGuardado
+      ? 'Datos cargados el ' + fechaGlobal + ' a las ' + horaGuardado
+      : fechaGlobal
+        ? 'Datos de ' + fechaGlobal
+        : 'Sin datos cargados';
 }
 
 function badgeHTML(pct) {
   if (pct >= 100) return '<span class="badge badge-win">✓ Meta cumplida</span>';
-  if (pct >= 80)  return '<span class="badge badge-ok">En camino</span>';
+  if (pct >= 90)  return '<span class="badge badge-high">Alto</span>';
+  if (pct >= 80)  return '<span class="badge badge-mid">Medio</span>';
   return '<span class="badge badge-low">Bajo meta</span>';
 }
 
@@ -625,7 +629,8 @@ function cerrarEditor() {
 function guardarYSiguiente() {
   saveEditorCurrent();
   fechaGlobal = document.getElementById('ed-fecha').value.trim();
-  localStorage.setItem('prod-datos', JSON.stringify({ datos, fecha: fechaGlobal }));
+  horaGuardado = new Date().toLocaleTimeString('es-PY', {hour:'2-digit', minute:'2-digit'});
+  localStorage.setItem('prod-datos', JSON.stringify({ datos, fecha: fechaGlobal, hora: horaGuardado }));
   if (editorSector < SECTORES.length - 1) {
     editorSector++;
     loadEditorSector();

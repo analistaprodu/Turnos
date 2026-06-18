@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Producción por turno</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  /* =============================================
+     DATOS DEL DÍA — EDITÁ SOLO ESTA SECCIÓN
+     ============================================= */
+  :root {
+    --fecha:    "Jueves 18 Jun";
+    --t1-mts2:  420;   /* Turno Mañana: mts² producidos */
+    --t2-mts2:  310;   /* Turno Noche:  mts² producidos */
+    --meta-dia: 1000;  /* Meta diaria total en mts² */
+  }
+  /* ============================================= */
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f1117;
+    color: #f0f0f0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 1rem;
+  }
+
+  .planta { font-size: 13px; color: #888; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  h1 { font-size: 26px; font-weight: 500; color: #f0f0f0; }
+  .fecha { font-size: 15px; color: #666; }
+
+  .top-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .turno-card {
+    background: #1a1d26;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .turno-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .turno-manana::before { background: #378ADD; }
+  .turno-noche::before  { background: #7c5cbf; }
+  .turno-total::before  { background: #1D9E75; }
+
+  .turno-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 6px;
+  }
+
+  .turno-nombre {
+    font-size: 16px;
+    font-weight: 500;
+    color: #ccc;
+    margin-bottom: 4px;
+  }
+
+  .turno-horario {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 1.25rem;
+  }
+
+  .turno-mts {
+    font-size: 52px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  .turno-manana .turno-mts { color: #378ADD; }
+  .turno-noche  .turno-mts { color: #9b7ee0; }
+  .turno-total  .turno-mts { color: #1D9E75; }
+
+  .turno-unit {
+    font-size: 14px;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  .pct-bar-wrap {
+    margin-top: 1.25rem;
+  }
+
+  .pct-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 6px;
+  }
+
+  .pct-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .pct-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .turno-manana .pct-fill { background: #378ADD; }
+  .turno-noche  .pct-fill { background: #9b7ee0; }
+  .turno-total  .pct-fill { background: #1D9E75; }
+
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-top: 10px;
+  }
+
+  .badge-win  { background: rgba(29,158,117,0.2); color: #1D9E75; }
+  .badge-ok   { background: rgba(55,138,221,0.2); color: #378ADD; }
+  .badge-low  { background: rgba(226,75,74,0.15); color: #e26a6a; }
+  .badge-meta { background: rgba(29,158,117,0.15); color: #1D9E75; }
+  .badge-bajo { background: rgba(226,75,74,0.15); color: #e26a6a; }
+
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .chart-card {
+    background: #1a1d26;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chart-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  .chart-wrap {
+    position: relative;
+    flex: 1;
+    min-height: 200px;
+  }
+
+  .stats-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: #1a1d26;
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    flex: 1;
+  }
+
+  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #555; margin-bottom: 8px; }
+  .stat-value { font-size: 28px; font-weight: 300; }
+  .stat-sub   { font-size: 12px; color: #555; margin-top: 4px; }
+
+  .stat-manana .stat-value { color: #378ADD; }
+  .stat-noche  .stat-value { color: #9b7ee0; }
+  .stat-verde  .stat-value { color: #1D9E75; }
+  .stat-rojo   .stat-value { color: #e26a6a; }
+
+  footer {
+    font-size: 11px;
+    color: #333;
+    text-align: right;
+  }
+
+  .legend {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .legend span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #666;
+  }
+  .legend-sq { width: 10px; height: 10px; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="planta">Panel de producción</div>
+    <h1>Comparación de turnos</h1>
+  </div>
+  <div class="fecha" id="fecha-display"></div>
+</header>
+
+<div class="top-grid">
+  <div class="turno-card turno-manana">
+    <div class="turno-label">Turno mañana</div>
+    <div class="turno-nombre">☀ Mañana</div>
+    <div class="turno-horario">07:00 — 17:30 &nbsp;|&nbsp; 10.5 h</div>
+    <div class="turno-mts" id="t1-val">—</div>
+    <div class="turno-unit">mts²</div>
+    <div class="pct-bar-wrap">
+      <div class="pct-label">
+        <span>vs meta del turno</span>
+        <span id="t1-pct">—</span>
+      </div>
+      <div class="pct-bar"><div class="pct-fill" id="t1-bar" style="width:0%"></div></div>
+    </div>
+    <div id="t1-badge"></div>
+  </div>
+
+  <div class="turno-card turno-noche">
+    <div class="turno-label">Turno noche</div>
+    <div class="turno-nombre">☾ Noche</div>
+    <div class="turno-horario">22:00 — 07:00 &nbsp;|&nbsp; 9 h</div>
+    <div class="turno-mts" id="t2-val">—</div>
+    <div class="turno-unit">mts²</div>
+    <div class="pct-bar-wrap">
+      <div class="pct-label">
+        <span>vs meta del turno</span>
+        <span id="t2-pct">—</span>
+      </div>
+      <div class="pct-bar"><div class="pct-fill" id="t2-bar" style="width:0%"></div></div>
+    </div>
+    <div id="t2-badge"></div>
+  </div>
+
+  <div class="turno-card turno-total">
+    <div class="turno-label">Total del día</div>
+    <div class="turno-nombre">Producción acumulada</div>
+    <div class="turno-horario">Meta: <span id="meta-display">—</span> mts²</div>
+    <div class="turno-mts" id="total-val">—</div>
+    <div class="turno-unit">mts²</div>
+    <div class="pct-bar-wrap">
+      <div class="pct-label">
+        <span>cumplimiento</span>
+        <span id="total-pct">—</span>
+      </div>
+      <div class="pct-bar"><div class="pct-fill" id="total-bar" style="width:0%"></div></div>
+    </div>
+    <div id="total-badge"></div>
+  </div>
+</div>
+
+<div class="charts-grid">
+  <div class="chart-card">
+    <div class="chart-title">Producción por turno vs meta proporcional</div>
+    <div class="legend">
+      <span><span class="legend-sq" style="background:#378ADD"></span>Turno mañana</span>
+      <span><span class="legend-sq" style="background:#9b7ee0"></span>Turno noche</span>
+      <span><span class="legend-sq" style="background:rgba(226,75,74,0.5)"></span>Meta</span>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="barChart" role="img" aria-label="Barras de producción por turno versus meta proporcional">Gráfico de barras por turno.</canvas>
+    </div>
+  </div>
+
+  <div class="stats-col">
+    <div class="stat-card stat-manana">
+      <div class="stat-label">Ritmo mañana (mts²/h)</div>
+      <div class="stat-value" id="uh1">—</div>
+      <div class="stat-sub">sobre 10.5 horas</div>
+    </div>
+    <div class="stat-card stat-noche">
+      <div class="stat-label">Ritmo noche (mts²/h)</div>
+      <div class="stat-value" id="uh2">—</div>
+      <div class="stat-sub">sobre 9 horas</div>
+    </div>
+    <div class="stat-card" id="mejor-card">
+      <div class="stat-label">Mejor ritmo</div>
+      <div class="stat-value" id="mejor-turno">—</div>
+      <div class="stat-sub" id="mejor-dif">—</div>
+    </div>
+  </div>
+</div>
+
+<footer>Actualizado: <span id="update-time"></span></footer>
+
+<script>
+  // ── Leer datos hardcodeados ──────────────────────────────
+  // Estos valores vienen del CSS :root para que queden en un solo lugar.
+  // Si tu navegador no soporta getPropertyValue, editá directamente acá:
+  const T1    = 420;    // mts² turno mañana
+  const T2    = 310;    // mts² turno noche
+  const META  = 1000;   // meta diaria
+  const FECHA = "Jueves 18 Jun";
+
+  // Horas por turno
+  const H1 = 10.5;
+  const H2 = 9;
+
+  // ── Calcular ─────────────────────────────────────────────
+  const metaT1 = Math.round(META * (H1 / (H1 + H2)));
+  const metaT2 = META - metaT1;
+  const total  = T1 + T2;
+
+  const pct1   = Math.min(Math.round((T1 / metaT1) * 100), 150);
+  const pct2   = Math.min(Math.round((T2 / metaT2) * 100), 150);
+  const pctTot = Math.min(Math.round((total / META) * 100), 150);
+
+  const uh1 = (T1 / H1).toFixed(1);
+  const uh2 = (T2 / H2).toFixed(1);
+
+  // ── Renderizar tarjetas ───────────────────────────────────
+  document.getElementById('fecha-display').textContent = FECHA;
+  document.getElementById('meta-display').textContent = META.toLocaleString();
+  document.getElementById('update-time').textContent = new Date().toLocaleTimeString('es-PY', {hour:'2-digit', minute:'2-digit'});
+
+  document.getElementById('t1-val').textContent  = T1.toLocaleString();
+  document.getElementById('t2-val').textContent  = T2.toLocaleString();
+  document.getElementById('total-val').textContent = total.toLocaleString();
+
+  document.getElementById('t1-pct').textContent    = pct1 + '%';
+  document.getElementById('t2-pct').textContent    = pct2 + '%';
+  document.getElementById('total-pct').textContent = pctTot + '%';
+
+  document.getElementById('t1-bar').style.width    = Math.min(pct1, 100) + '%';
+  document.getElementById('t2-bar').style.width    = Math.min(pct2, 100) + '%';
+  document.getElementById('total-bar').style.width = Math.min(pctTot, 100) + '%';
+
+  document.getElementById('uh1').textContent = uh1;
+  document.getElementById('uh2').textContent = uh2;
+
+  function badge(pct, el) {
+    if (pct >= 100) { el.innerHTML = '<span class="badge badge-win">✓ Meta cumplida</span>'; }
+    else if (pct >= 80) { el.innerHTML = '<span class="badge badge-ok">En camino</span>'; }
+    else { el.innerHTML = '<span class="badge badge-low">Bajo meta</span>'; }
+  }
+  badge(pct1, document.getElementById('t1-badge'));
+  badge(pct2, document.getElementById('t2-badge'));
+  badge(pctTot, document.getElementById('total-badge'));
+
+  const mejorTurno = parseFloat(uh1) >= parseFloat(uh2) ? 'Turno mañana' : 'Turno noche';
+  const difRitmo   = Math.abs(parseFloat(uh1) - parseFloat(uh2)).toFixed(1);
+  const mejorCard  = document.getElementById('mejor-card');
+  mejorCard.classList.add(parseFloat(uh1) >= parseFloat(uh2) ? 'stat-manana' : 'stat-noche');
+  document.getElementById('mejor-turno').textContent = mejorTurno;
+  document.getElementById('mejor-dif').textContent = '+' + difRitmo + ' mts²/h sobre el otro turno';
+
+  // ── Gráfico ───────────────────────────────────────────────
+  new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Turno mañana', 'Turno noche'],
+      datasets: [
+        {
+          label: 'Producido',
+          data: [T1, T2],
+          backgroundColor: ['#378ADD', '#9b7ee0'],
+          borderRadius: 6,
+          borderSkipped: false
+        },
+        {
+          label: 'Meta proporcional',
+          data: [metaT1, metaT2],
+          backgroundColor: ['rgba(226,75,74,0.2)', 'rgba(226,75,74,0.2)'],
+          borderColor: ['rgba(226,75,74,0.6)', 'rgba(226,75,74,0.6)'],
+          borderWidth: 1.5,
+          borderRadius: 6,
+          borderSkipped: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: { color: '#555', font: { size: 12 }, callback: v => v.toLocaleString() + ' m²' }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: '#888', font: { size: 14 } }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

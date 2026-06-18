@@ -39,18 +39,22 @@
     box-shadow: 0 8px 40px rgba(0,0,0,0.18);
   }
 
-  #editor-box h2 { font-size: 18px; font-weight: 600; color: #1a1a2e; margin-bottom: 6px; }
-  #editor-sector-name { font-size: 13px; color: #888; margin-bottom: 1.5rem; }
+  #editor-box h2 { font-size: 20px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+  #editor-sector-name { font-size: 14px; color: #555; font-weight: 600; margin-bottom: 1.25rem; }
+
+  .sector-tabs { display:flex; gap:8px; margin-bottom:1.25rem; }
+  .sector-tab { flex:1; padding:8px; border-radius:8px; border:1.5px solid #e0e0e0; background:#f7f8fa; font-size:13px; color:#888; cursor:pointer; text-align:center; font-weight:600; }
+  .sector-tab.active { border-color:#2563eb; background:#eff6ff; color:#2563eb; }
 
   .field { margin-bottom: 1rem; }
-  .field label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; font-weight: 500; }
+  .field label { display: block; font-size: 13px; color: #555; margin-bottom: 5px; font-weight: 700; }
   .field input {
     width: 100%;
     background: #f7f8fa;
     border: 1.5px solid #e0e0e0;
     border-radius: 8px;
     color: #1a1a2e;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 400;
     padding: 10px 14px;
     outline: none;
@@ -58,15 +62,12 @@
   .field input:focus { border-color: #2563eb; background: #fff; }
 
   .btn-row { display: flex; gap: 10px; margin-top: 1.5rem; }
-  .btn-primary { flex:1; background:#2563eb; color:#fff; border:none; border-radius:8px; font-size:15px; font-weight:600; padding:12px; cursor:pointer; }
+  .btn-primary { flex:1; background:#2563eb; color:#fff; border:none; border-radius:8px; font-size:15px; font-weight:700; padding:12px; cursor:pointer; }
   .btn-primary:hover { background:#1d4ed8; }
-  .btn-nav { background:#f0f2f5; color:#444; border:none; border-radius:8px; font-size:14px; padding:12px 16px; cursor:pointer; }
+  .btn-nav { background:#f0f2f5; color:#333; border:none; border-radius:8px; font-size:15px; font-weight:700; padding:12px 16px; cursor:pointer; }
   .btn-nav:hover { background:#e0e2e5; }
-  .btn-secondary { background:#f0f2f5; color:#888; border:none; border-radius:8px; font-size:14px; padding:12px 18px; cursor:pointer; }
-
-  .sector-tabs { display:flex; gap:8px; margin-bottom:1.25rem; }
-  .sector-tab { flex:1; padding:8px; border-radius:8px; border:1.5px solid #e0e0e0; background:#f7f8fa; font-size:13px; color:#888; cursor:pointer; text-align:center; font-weight:500; }
-  .sector-tab.active { border-color:#2563eb; background:#eff6ff; color:#2563eb; }
+  .btn-secondary { background:#f0f2f5; color:#555; border:none; border-radius:8px; font-size:14px; font-weight:600; padding:12px 18px; cursor:pointer; }
+  .btn-secondary:hover { background:#e0e2e5; }
 
   /* ── TOPBAR ─────────────────────────────────────── */
   .topbar {
@@ -81,13 +82,10 @@
 
   .topbar-left h1 { font-size: 28px; font-weight: 700; color: #1a1a2e; }
   .topbar-left .sub { font-size: 17px; color: #333; margin-top: 3px; font-weight: 700; }
-
-  .topbar-right { display:flex; align-items:center; gap:16px; }
-  .update-info { font-size: 17px; color: #555; }
   .btn-editar { background:#eff6ff; color:#2563eb; border:1.5px solid #bfdbfe; border-radius:8px; font-size:16px; font-weight:700; padding:10px 22px; cursor:pointer; }
   .btn-editar:hover { background:#dbeafe; }
 
-  /* ── SECTOR INDICATOR ───────────────────────────── */
+  /* ── SECTOR BAR ─────────────────────────────────── */
   .sector-bar {
     background: #fff;
     border-bottom: 1.5px solid #e4e6ea;
@@ -97,6 +95,8 @@
     gap: 12px;
     flex-shrink: 0;
   }
+
+  .sector-pills { display:flex; gap:8px; }
 
   .sector-pill {
     padding: 7px 22px;
@@ -108,18 +108,13 @@
     color: #555;
     background: transparent;
   }
-  .sector-pill.active {
-    background: #1a1a2e;
-    color: #fff;
-    border-color: #1a1a2e;
-  }
+  .sector-pill.active { background: #1a1a2e; color: #fff; border-color: #1a1a2e; }
 
   .progress-wrap { flex:1; height:4px; background:#e4e6ea; border-radius:2px; overflow:hidden; }
-  .progress-bar { height:100%; background:#2563eb; border-radius:2px; transition: width 0.1s linear; }
+  .progress-bar { height:100%; background:#2563eb; border-radius:2px; }
+  .sector-timer { font-size:16px; color:#333; min-width:36px; text-align:right; font-weight:800; }
 
-  .sector-timer { font-size:16px; color:#444; min-width:36px; text-align:right; font-weight:800; }
-
-  /* ── MAIN CONTENT ───────────────────────────────── */
+  /* ── MAIN ───────────────────────────────────────── */
   .main {
     flex: 1;
     padding: 1.25rem 2rem;
@@ -129,20 +124,8 @@
     overflow: hidden;
   }
 
-  .sector-title {
-    font-size: 38px;
-    font-weight: 700;
-    color: #1a1a2e;
-    letter-spacing: -0.5px;
-  }
-
-  .sector-title span {
-    font-size: 20px;
-    font-weight: 400;
-    color: #666;
-    margin-left: 14px;
-    letter-spacing: 0;
-  }
+  .sector-title { font-size: 38px; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; }
+  .sector-title span { font-size: 20px; font-weight: 600; color: #555; margin-left: 14px; letter-spacing: 0; }
 
   /* ── TARJETAS ───────────────────────────────────── */
   .cards-row {
@@ -175,13 +158,7 @@
   .card-nombre { font-size: 24px; font-weight: 700; color: #222; margin-bottom: 2px; }
   .card-horario { font-size: 17px; color: #555; font-weight: 600; margin-bottom: 1.25rem; }
 
-  .card-valor {
-    font-size: 82px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -2px;
-  }
-
+  .card-valor { font-size: 82px; font-weight: 700; line-height: 1; letter-spacing: -2px; }
   .card-manana .card-valor { color: #2563eb; }
   .card-noche  .card-valor { color: #7c3aed; }
   .card-total  .card-valor { color: #059669; }
@@ -201,7 +178,6 @@
   .badge-high { background:#dbeafe; color:#1e40af; }
   .badge-mid  { background:#fef9c3; color:#854d0e; }
   .badge-low  { background:#fee2e2; color:#991b1b; }
-  .badge-na   { background:#f0f2f5; color:#888; }
 
   /* ── FILA INFERIOR ──────────────────────────────── */
   .bottom-row {
@@ -225,7 +201,7 @@
 
   .legend { display:flex; gap:16px; margin-bottom:10px; }
   .legend span { display:flex; align-items:center; gap:6px; font-size:16px; color:#333; font-weight:700; }
-  .legend-sq { width:11px; height:11px; border-radius:2px; }
+  .legend-sq { width:12px; height:12px; border-radius:2px; }
 
   .chart-wrap { position:relative; flex:1; min-height:0; }
 
@@ -259,6 +235,31 @@
 </head>
 <body>
 
+<!-- EDITOR -->
+<div id="editor-overlay">
+  <div id="editor-box">
+    <h2>Cargar datos del día</h2>
+    <div id="editor-sector-name">Sector</div>
+    <div class="sector-tabs" id="sector-tabs"></div>
+    <div class="field">
+      <label>Fecha (ej: Viernes 19 Jun)</label>
+      <input type="text" id="ed-fecha" placeholder="Viernes 19 Jun" />
+    </div>
+    <div class="field">
+      <label>☀ Turno mañana — mts²</label>
+      <input type="number" id="ed-t1" placeholder="0" min="0" />
+    </div>
+    <div class="field">
+      <label>☾ Turno noche — mts²</label>
+      <input type="number" id="ed-t2" placeholder="0" min="0" />
+    </div>
+    <div class="btn-row">
+      <button class="btn-nav" onclick="navSector(-1)">◀</button>
+      <button class="btn-primary" onclick="guardarYSiguiente()">Guardar y siguiente ▶</button>
+      <button class="btn-secondary" onclick="cerrarEditor()">Cerrar</button>
+    </div>
+  </div>
+</div>
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -266,13 +267,12 @@
     <h1>Panel de producción</h1>
     <div class="sub" id="update-info">Sin datos cargados</div>
   </div>
-  <div class="topbar-right">
-  </div>
+  <button class="btn-editar" onclick="abrirEditor(0)">✎ Cargar datos del día</button>
 </div>
 
 <!-- SECTOR BAR -->
 <div class="sector-bar">
-  <div id="sector-pills"></div>
+  <div class="sector-pills" id="sector-pills"></div>
   <div style="display:flex;align-items:center;gap:10px;flex:1;margin-left:12px;">
     <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
     <div class="sector-timer" id="sector-timer">15s</div>
@@ -352,33 +352,25 @@
 </div>
 
 <script>
-// =============================================
-// DATOS DEL DÍA — EDITÁ SOLO ESTA SECCIÓN
-// =============================================
-const DATOS_DIA = {
-  fecha:     "Datos del Miércoles 17 de Jun",
-  hora:      "17:30",
-  corte:     { t1: 408,41, t2: 387,72 },
-  pulido:    { t1: 350,55, t2: 259,51 },
-  perforado: { t1: 145,47, t2: 113,57 },
-  templado:  { t1: 391,95, t2: 291,11 }
-};
-// =============================================
-
 const SECTORES = [
-  { id: 'corte',      nombre: 'Corte',      meta: null },
-  { id: 'pulido',     nombre: 'Pulido',     meta: null },
-  { id: 'perforado',  nombre: 'Perforado',  meta: null },
-  { id: 'templado',   nombre: 'Templado',   meta: 1000 }
+  { id: 'corte',     nombre: 'Corte',     meta: null },
+  { id: 'pulido',    nombre: 'Pulido',    meta: null },
+  { id: 'perforado', nombre: 'Perforado', meta: null },
+  { id: 'templado',  nombre: 'Templado',  meta: 1000 }
 ];
 
 const H1 = 9.5, H2 = 8;
 
-let datos = DATOS_DIA;
-let fechaGlobal = DATOS_DIA.fecha;
-let horaGuardado = DATOS_DIA.hora;
+let datos = {};
+let fechaGlobal = '';
+let horaGuardado = '';
 let sectorActual = 0;
 let editorSector = 0;
+
+try {
+  const s = localStorage.getItem('prod-datos');
+  if (s) { const p = JSON.parse(s); datos = p.datos || {}; fechaGlobal = p.fecha || ''; horaGuardado = p.hora || ''; }
+} catch(e) {}
 
 // ── ROTACIÓN ─────────────────────────────────────────
 const INTERVALO = 15;
@@ -411,8 +403,6 @@ function actualizarProgress() {
 function renderPills() {
   const wrap = document.getElementById('sector-pills');
   wrap.innerHTML = '';
-  wrap.style.display = 'flex';
-  wrap.style.gap = '8px';
   SECTORES.forEach((s, i) => {
     const p = document.createElement('button');
     p.className = 'sector-pill' + (i === sectorActual ? ' active' : '');
@@ -422,7 +412,7 @@ function renderPills() {
   });
 }
 
-// ── RENDER SECTOR ─────────────────────────────────────
+// ── RENDER ────────────────────────────────────────────
 let barChart = null;
 
 function renderSector() {
@@ -434,11 +424,9 @@ function renderSector() {
   const metaT1 = tieneMeta ? Math.round(s.meta * (H1 / (H1 + H2))) : null;
   const metaT2 = tieneMeta ? s.meta - metaT1 : null;
 
-  // Título
-  document.getElementById('sector-title').innerHTML =
-    s.nombre + '<span>' + (fechaGlobal || '') + '</span>';
+  document.getElementById('sector-title').innerHTML = s.nombre + '<span>' + (fechaGlobal || '') + '</span>';
 
-  // Tarjeta T1
+  // T1
   document.getElementById('c-t1').textContent = t1 > 0 ? t1.toLocaleString() : '—';
   if (tieneMeta && t1 > 0) {
     const p = Math.round((t1/metaT1)*100);
@@ -446,19 +434,14 @@ function renderSector() {
     document.getElementById('c-t1-pct').textContent = p + '%';
     document.getElementById('c-t1-bar').style.width = Math.min(p,100) + '%';
     document.getElementById('c-t1-badge').innerHTML = badgeHTML(p);
-  } else if (!tieneMeta && t1 > 0) {
-    document.getElementById('c-t1-meta-label').textContent = 'sin meta definida';
-    document.getElementById('c-t1-pct').textContent = '';
-    document.getElementById('c-t1-bar').style.width = '0%';
-    document.getElementById('c-t1-badge').innerHTML = '';
   } else {
-    document.getElementById('c-t1-meta-label').textContent = '—';
+    document.getElementById('c-t1-meta-label').textContent = tieneMeta ? 'vs meta turno' : 'sin meta definida';
     document.getElementById('c-t1-pct').textContent = '';
     document.getElementById('c-t1-bar').style.width = '0%';
     document.getElementById('c-t1-badge').innerHTML = '';
   }
 
-  // Tarjeta T2
+  // T2
   document.getElementById('c-t2').textContent = t2 > 0 ? t2.toLocaleString() : '—';
   if (tieneMeta && t2 > 0) {
     const p = Math.round((t2/metaT2)*100);
@@ -466,19 +449,14 @@ function renderSector() {
     document.getElementById('c-t2-pct').textContent = p + '%';
     document.getElementById('c-t2-bar').style.width = Math.min(p,100) + '%';
     document.getElementById('c-t2-badge').innerHTML = badgeHTML(p);
-  } else if (!tieneMeta && t2 > 0) {
-    document.getElementById('c-t2-meta-label').textContent = 'sin meta definida';
-    document.getElementById('c-t2-pct').textContent = '';
-    document.getElementById('c-t2-bar').style.width = '0%';
-    document.getElementById('c-t2-badge').innerHTML = '';
   } else {
-    document.getElementById('c-t2-meta-label').textContent = '—';
+    document.getElementById('c-t2-meta-label').textContent = tieneMeta ? 'vs meta turno' : 'sin meta definida';
     document.getElementById('c-t2-pct').textContent = '';
     document.getElementById('c-t2-bar').style.width = '0%';
     document.getElementById('c-t2-badge').innerHTML = '';
   }
 
-  // Tarjeta Total
+  // Total
   document.getElementById('c-total').textContent = total > 0 ? total.toLocaleString() : '—';
   if (tieneMeta) {
     document.getElementById('c-meta-label').textContent = 'Meta diaria: ' + s.meta.toLocaleString() + ' mts²';
@@ -518,17 +496,12 @@ function renderSector() {
   }
 
   // Gráfico
-  const chartDatasets = [
+  const datasets = [
     { label: 'Mañana', data: [t1, 0], backgroundColor: '#2563eb', borderRadius: 8, borderSkipped: false },
     { label: 'Noche',  data: [0, t2], backgroundColor: '#7c3aed', borderRadius: 8, borderSkipped: false }
   ];
   if (tieneMeta) {
-    chartDatasets.push({
-      label: 'Meta', data: [metaT1, metaT2],
-      backgroundColor: 'rgba(220,38,38,0.15)',
-      borderColor: 'rgba(220,38,38,0.5)',
-      borderWidth: 1.5, borderRadius: 8, borderSkipped: false
-    });
+    datasets.push({ label: 'Meta', data: [metaT1, metaT2], backgroundColor: 'rgba(220,38,38,0.15)', borderColor: 'rgba(220,38,38,0.5)', borderWidth: 1.5, borderRadius: 8, borderSkipped: false });
     document.getElementById('legend-meta-wrap').style.display = 'flex';
   } else {
     document.getElementById('legend-meta-wrap').style.display = 'none';
@@ -537,13 +510,13 @@ function renderSector() {
   if (barChart) barChart.destroy();
   barChart = new Chart(document.getElementById('barChart'), {
     type: 'bar',
-    data: { labels: ['Turno mañana', 'Turno noche'], datasets: chartDatasets },
+    data: { labels: ['Turno mañana', 'Turno noche'], datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#aaa', font: { size: 13 }, callback: v => v.toLocaleString() } },
-        x: { grid: { display: false }, ticks: { color: '#555', font: { size: 16, weight: '600' } } }
+        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { color: '#444', font: { size: 13 }, callback: v => v.toLocaleString() } },
+        x: { grid: { display: false }, ticks: { color: '#222', font: { size: 16, weight: '700' } } }
       }
     }
   });
@@ -552,9 +525,7 @@ function renderSector() {
   document.getElementById('update-info').textContent =
     fechaGlobal && horaGuardado
       ? 'Datos cargados el ' + fechaGlobal + ' a las ' + horaGuardado
-      : fechaGlobal
-        ? 'Datos de ' + fechaGlobal
-        : 'Sin datos cargados';
+      : fechaGlobal ? 'Datos de ' + fechaGlobal : 'Sin datos cargados';
 }
 
 function badgeHTML(pct) {
@@ -591,6 +562,43 @@ function saveEditorCurrent() {
     t1: parseFloat(document.getElementById('ed-t1').value) || 0,
     t2: parseFloat(document.getElementById('ed-t2').value) || 0
   };
+}
+
+function navSector(dir) {
+  saveEditorCurrent();
+  editorSector = (editorSector + dir + SECTORES.length) % SECTORES.length;
+  loadEditorSector();
+  buildEditorTabs();
+  document.getElementById('ed-t1').focus();
+}
+
+function abrirEditor(idx) {
+  editorSector = idx !== undefined ? idx : sectorActual;
+  document.getElementById('ed-fecha').value = fechaGlobal;
+  loadEditorSector();
+  buildEditorTabs();
+  document.getElementById('editor-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('ed-t1').focus(), 100);
+}
+
+function cerrarEditor() {
+  document.getElementById('editor-overlay').classList.remove('open');
+}
+
+function guardarYSiguiente() {
+  saveEditorCurrent();
+  fechaGlobal = document.getElementById('ed-fecha').value.trim();
+  horaGuardado = new Date().toLocaleTimeString('es-PY', {hour:'2-digit', minute:'2-digit'});
+  localStorage.setItem('prod-datos', JSON.stringify({ datos, fecha: fechaGlobal, hora: horaGuardado }));
+  if (editorSector < SECTORES.length - 1) {
+    editorSector++;
+    loadEditorSector();
+    buildEditorTabs();
+    document.getElementById('ed-t1').focus();
+  } else {
+    cerrarEditor();
+    renderSector();
+  }
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarEditor(); });

@@ -259,31 +259,6 @@
 </head>
 <body>
 
-<!-- EDITOR -->
-<div id="editor-overlay">
-  <div id="editor-box">
-    <h2>Actualizar datos</h2>
-    <div id="editor-sector-name">Sector</div>
-    <div class="sector-tabs" id="sector-tabs"></div>
-    <div class="field">
-      <label>Fecha (ej: Viernes 19 Jun)</label>
-      <input type="text" id="ed-fecha" placeholder="Viernes 19 Jun" />
-    </div>
-    <div class="field">
-      <label>☀ Turno mañana — mts²</label>
-      <input type="number" id="ed-t1" placeholder="0" min="0" />
-    </div>
-    <div class="field">
-      <label>☾ Turno noche — mts²</label>
-      <input type="number" id="ed-t2" placeholder="0" min="0" />
-    </div>
-    <div class="btn-row">
-      <button class="btn-nav" onclick="navSector(-1)">◀</button>
-      <button class="btn-primary" onclick="guardarYSiguiente()">Guardar y siguiente ▶</button>
-      <button class="btn-secondary" onclick="cerrarEditor()">Cerrar</button>
-    </div>
-  </div>
-</div>
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -292,7 +267,6 @@
     <div class="sub" id="update-info">Sin datos cargados</div>
   </div>
   <div class="topbar-right">
-    <button class="btn-editar" onclick="abrirEditor(0)">✎ Cargar datos del día</button>
   </div>
 </div>
 
@@ -378,6 +352,19 @@
 </div>
 
 <script>
+// =============================================
+// DATOS DEL DÍA — EDITÁ SOLO ESTA SECCIÓN
+// =============================================
+const DATOS_DIA = {
+  fecha:     "Datos del Miércoles 17 de Jun",
+  hora:      "17:30",
+  corte:     { t1: 408,41, t2: 387,72 },
+  pulido:    { t1: 350,55, t2: 259,51 },
+  perforado: { t1: 145,47, t2: 113,57 },
+  templado:  { t1: 391,95, t2: 291,11 }
+};
+// =============================================
+
 const SECTORES = [
   { id: 'corte',      nombre: 'Corte',      meta: null },
   { id: 'pulido',     nombre: 'Pulido',     meta: null },
@@ -387,18 +374,11 @@ const SECTORES = [
 
 const H1 = 9.5, H2 = 8;
 
-// Estado: datos por sector
-let datos = {};
-let fechaGlobal = '';
+let datos = DATOS_DIA;
+let fechaGlobal = DATOS_DIA.fecha;
+let horaGuardado = DATOS_DIA.hora;
 let sectorActual = 0;
 let editorSector = 0;
-
-// Cargar localStorage
-let horaGuardado = '';
-try {
-  const s = localStorage.getItem('prod-datos');
-  if (s) { const p = JSON.parse(s); datos = p.datos || {}; fechaGlobal = p.fecha || ''; horaGuardado = p.hora || ''; }
-} catch(e) {}
 
 // ── ROTACIÓN ─────────────────────────────────────────
 const INTERVALO = 15;
@@ -611,35 +591,6 @@ function saveEditorCurrent() {
     t1: parseFloat(document.getElementById('ed-t1').value) || 0,
     t2: parseFloat(document.getElementById('ed-t2').value) || 0
   };
-}
-
-function abrirEditor(idx) {
-  editorSector = idx !== undefined ? idx : sectorActual;
-  document.getElementById('ed-fecha').value = fechaGlobal;
-  loadEditorSector();
-  buildEditorTabs();
-  document.getElementById('editor-overlay').classList.add('open');
-  setTimeout(() => document.getElementById('ed-t1').focus(), 100);
-}
-
-function cerrarEditor() {
-  document.getElementById('editor-overlay').classList.remove('open');
-}
-
-function guardarYSiguiente() {
-  saveEditorCurrent();
-  fechaGlobal = document.getElementById('ed-fecha').value.trim();
-  horaGuardado = new Date().toLocaleTimeString('es-PY', {hour:'2-digit', minute:'2-digit'});
-  localStorage.setItem('prod-datos', JSON.stringify({ datos, fecha: fechaGlobal, hora: horaGuardado }));
-  if (editorSector < SECTORES.length - 1) {
-    editorSector++;
-    loadEditorSector();
-    buildEditorTabs();
-    document.getElementById('ed-t1').focus();
-  } else {
-    cerrarEditor();
-    renderSector();
-  }
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarEditor(); });

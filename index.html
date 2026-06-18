@@ -80,7 +80,7 @@
   }
 
   .topbar-left h1 { font-size: 28px; font-weight: 700; color: #1a1a2e; }
-  .topbar-left .sub { font-size: 17px; color: #555; margin-top: 3px; font-weight: 500; }
+  .topbar-left .sub { font-size: 17px; color: #333; margin-top: 3px; font-weight: 700; }
 
   .topbar-right { display:flex; align-items:center; gap:16px; }
   .update-info { font-size: 17px; color: #555; }
@@ -102,10 +102,10 @@
     padding: 7px 22px;
     border-radius: 20px;
     font-size: 17px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     border: 1.5px solid transparent;
-    color: #888;
+    color: #555;
     background: transparent;
   }
   .sector-pill.active {
@@ -117,7 +117,7 @@
   .progress-wrap { flex:1; height:4px; background:#e4e6ea; border-radius:2px; overflow:hidden; }
   .progress-bar { height:100%; background:#2563eb; border-radius:2px; transition: width 0.1s linear; }
 
-  .sector-timer { font-size:16px; color:#888; min-width:36px; text-align:right; font-weight:600; }
+  .sector-timer { font-size:16px; color:#444; min-width:36px; text-align:right; font-weight:800; }
 
   /* ── MAIN CONTENT ───────────────────────────────── */
   .main {
@@ -171,9 +171,9 @@
   .card-noche::after  { background: #7c3aed; }
   .card-total::after  { background: #059669; }
 
-  .card-label { font-size: 15px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #777; margin-bottom: 3px; }
-  .card-nombre { font-size: 24px; font-weight: 600; color: #333; margin-bottom: 2px; }
-  .card-horario { font-size: 17px; color: #888; margin-bottom: 1.25rem; }
+  .card-label { font-size: 15px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #444; margin-bottom: 3px; }
+  .card-nombre { font-size: 24px; font-weight: 700; color: #222; margin-bottom: 2px; }
+  .card-horario { font-size: 17px; color: #555; font-weight: 600; margin-bottom: 1.25rem; }
 
   .card-valor {
     font-size: 82px;
@@ -186,10 +186,10 @@
   .card-noche  .card-valor { color: #7c3aed; }
   .card-total  .card-valor { color: #059669; }
 
-  .card-unit { font-size: 20px; color: #888; margin-top: 4px; margin-bottom: 1rem; }
+  .card-unit { font-size: 20px; color: #444; font-weight: 700; margin-top: 4px; margin-bottom: 1rem; }
 
-  .pct-row { display:flex; justify-content:space-between; font-size:16px; color:#777; margin-bottom:6px; }
-  .pct-row strong { font-size:18px; font-weight:700; color:#444; }
+  .pct-row { display:flex; justify-content:space-between; font-size:16px; color:#444; font-weight:700; margin-bottom:6px; }
+  .pct-row strong { font-size:18px; font-weight:800; color:#222; }
   .bar { height:8px; background:#e8eaed; border-radius:4px; overflow:hidden; }
   .bar-fill { height:100%; border-radius:4px; }
   .card-manana .bar-fill { background:#2563eb; }
@@ -220,10 +220,10 @@
     flex-direction: column;
   }
 
-  .chart-card-title { font-size:15px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#888; margin-bottom:10px; }
+  .chart-card-title { font-size:15px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#333; margin-bottom:10px; }
 
   .legend { display:flex; gap:16px; margin-bottom:10px; }
-  .legend span { display:flex; align-items:center; gap:6px; font-size:16px; color:#666; }
+  .legend span { display:flex; align-items:center; gap:6px; font-size:16px; color:#333; font-weight:700; }
   .legend-sq { width:11px; height:11px; border-radius:2px; }
 
   .chart-wrap { position:relative; flex:1; min-height:0; }
@@ -247,9 +247,9 @@
   }
   .ritmo-row:last-child { border-bottom: none; }
 
-  .ritmo-label { font-size:14px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:#777; margin-bottom:4px; }
+  .ritmo-label { font-size:14px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#333; margin-bottom:4px; }
   .ritmo-valor { font-size:42px; font-weight:700; line-height:1; }
-  .ritmo-sub { font-size:15px; color:#888; margin-top:3px; }
+  .ritmo-sub { font-size:15px; color:#444; font-weight:600; margin-top:3px; }
 
   .ritmo-manana .ritmo-valor { color:#2563eb; }
   .ritmo-noche  .ritmo-valor { color:#7c3aed; }
@@ -312,7 +312,7 @@
     <div class="card card-manana">
       <div class="card-label">Turno mañana</div>
       <div class="card-nombre">☀ Mañana</div>
-      <div class="card-horario">07:00 — 17:30 · 10.5 h</div>
+      <div class="card-horario">07:00 — 17:30 · 9.5 h efectivas</div>
       <div class="card-valor" id="c-t1">—</div>
       <div class="card-unit">mts²</div>
       <div class="pct-row"><span id="c-t1-meta-label">—</span><strong id="c-t1-pct">—</strong></div>
@@ -323,7 +323,7 @@
     <div class="card card-noche">
       <div class="card-label">Turno noche</div>
       <div class="card-nombre">☾ Noche</div>
-      <div class="card-horario">22:00 — 07:00 · 9 h</div>
+      <div class="card-horario">22:00 — 07:00 · 8 h efectivas</div>
       <div class="card-valor" id="c-t2">—</div>
       <div class="card-unit">mts²</div>
       <div class="pct-row"><span id="c-t2-meta-label">—</span><strong id="c-t2-pct">—</strong></div>
@@ -360,12 +360,12 @@
       <div class="ritmo-row ritmo-manana">
         <div class="ritmo-label">Ritmo mañana</div>
         <div class="ritmo-valor" id="r-uh1">—</div>
-        <div class="ritmo-sub">mts²/hora</div>
+        <div class="ritmo-sub">mts²/hora · 9.5 h efectivas</div>
       </div>
       <div class="ritmo-row ritmo-noche">
         <div class="ritmo-label">Ritmo noche</div>
         <div class="ritmo-valor" id="r-uh2">—</div>
-        <div class="ritmo-sub">mts²/hora</div>
+        <div class="ritmo-sub">mts²/hora · 8 h efectivas</div>
       </div>
       <div class="ritmo-row ritmo-mejor">
         <div class="ritmo-label">Mejor turno</div>
@@ -384,7 +384,7 @@ const SECTORES = [
   { id: 'templado',   nombre: 'Templado',   meta: 1000 }
 ];
 
-const H1 = 10.5, H2 = 9;
+const H1 = 9.5, H2 = 8;
 
 // Estado: datos por sector
 let datos = {};

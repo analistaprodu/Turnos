@@ -127,8 +127,8 @@
   /* ── VISTA RESUMEN ──────────────────────────────── */
   #vista-resumen { display:flex; flex-direction:column; gap:1rem; height:100%; }
 
-  .resumen-title { font-size: 38px; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; }
-  .resumen-title span { font-size: 20px; font-weight: 600; color: #555; margin-left: 14px; }
+  .resumen-title { font-size: 42px; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; }
+  .resumen-title span { font-size: 24px; font-weight: 600; color: #444; margin-left: 14px; }
 
   .resumen-grid {
     display: grid;
@@ -161,9 +161,9 @@
   .rc-perforado::after { background: #0891b2; }
   .rc-templado::after  { background: #059669; }
 
-  .resumen-sector-nombre { font-size: 20px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; text-align:center; }
-  .resumen-total { font-size: 48px; font-weight: 700; line-height: 1; margin: 8px 0 2px; }
-  .resumen-unit  { font-size: 16px; font-weight: 700; color: #555; margin-bottom: 8px; }
+  .resumen-sector-nombre { font-size: 26px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; text-align:center; }
+  .resumen-total { font-size: 64px; font-weight: 700; line-height: 1; margin: 10px 0 2px; }
+  .resumen-unit  { font-size: 18px; font-weight: 700; color: #444; margin-bottom: 10px; }
 
   .rc-corte .resumen-total    { color: #2563eb; }
   .rc-pulido .resumen-total   { color: #7c3aed; }
@@ -171,40 +171,40 @@
   .rc-templado .resumen-total  { color: #059669; }
 
   .semaforo {
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 32px;
-    margin: 8px 0;
+    font-size: 44px;
+    margin: 10px 0;
     flex-shrink: 0;
   }
 
-  .semaforo-verde   { background: #d1fae5; color: #065f46; box-shadow: 0 0 20px rgba(5,150,105,0.35); }
-  .semaforo-azul    { background: #dbeafe; color: #1e40af; box-shadow: 0 0 20px rgba(37,99,235,0.25); }
-  .semaforo-amarillo { background: #fef9c3; color: #854d0e; box-shadow: 0 0 20px rgba(234,179,8,0.3); }
-  .semaforo-rojo    { background: #fee2e2; color: #991b1b; box-shadow: 0 0 20px rgba(220,38,38,0.3); }
+  .semaforo-verde   { background: #d1fae5; color: #065f46; box-shadow: 0 0 28px rgba(5,150,105,0.45); }
+  .semaforo-azul    { background: #dbeafe; color: #1e40af; box-shadow: 0 0 28px rgba(37,99,235,0.35); }
+  .semaforo-amarillo { background: #fef9c3; color: #854d0e; box-shadow: 0 0 28px rgba(234,179,8,0.4); }
+  .semaforo-rojo    { background: #fee2e2; color: #991b1b; box-shadow: 0 0 28px rgba(220,38,38,0.4); }
   .semaforo-gris    { background: #f0f2f5; color: #aaa; }
 
-  .resumen-pct { font-size: 22px; font-weight: 800; color: #333; }
-  .resumen-meta-label { font-size: 13px; font-weight: 700; color: #777; margin-top: 2px; }
+  .resumen-pct { font-size: 30px; font-weight: 800; color: #222; }
+  .resumen-meta-label { font-size: 15px; font-weight: 700; color: #555; margin-top: 2px; }
 
-  .pie-wrap { width: 130px; height: 130px; position: relative; margin: 4px 0; flex-shrink: 0; }
+  .pie-wrap { width: 170px; height: 170px; position: relative; margin: 6px 0; flex-shrink: 0; }
 
   .mejor-turno-badge {
     background: #1a1a2e;
     color: #fff;
     border-radius: 10px;
-    padding: 0.6rem 1rem;
+    padding: 0.75rem 1rem;
     text-align: center;
-    margin-top: 6px;
+    margin-top: 8px;
     width: 100%;
   }
-  .mejor-turno-badge .trophy { font-size: 18px; }
-  .mejor-turno-badge .mejor-label { font-size: 12px; font-weight: 700; color: #aaa; letter-spacing: 0.08em; text-transform: uppercase; }
-  .mejor-turno-badge .mejor-val { font-size: 16px; font-weight: 800; color: #fff; }
+  .mejor-turno-badge .trophy { font-size: 22px; }
+  .mejor-turno-badge .mejor-label { font-size: 14px; font-weight: 700; color: #aaa; letter-spacing: 0.08em; text-transform: uppercase; }
+  .mejor-turno-badge .mejor-val { font-size: 20px; font-weight: 800; color: #fff; }
 
   /* ── VISTA SECTOR ───────────────────────────────── */
   #vista-sector { display:none; flex-direction:column; gap:1rem; height:100%; }
@@ -686,8 +686,7 @@ function renderSector(s) {
 
   // Gráfico
   const datasets = [
-    { label: 'Mañana', data: [t1, 0], backgroundColor: '#2563eb', borderRadius: 8, borderSkipped: false },
-    { label: 'Noche',  data: [0, t2], backgroundColor: '#7c3aed', borderRadius: 8, borderSkipped: false }
+    { label: 'Producido', data: [t1, t2], backgroundColor: ['#2563eb', '#7c3aed'], borderRadius: 8, borderSkipped: false }
   ];
   if (tieneMeta) {
     datasets.push({ label: 'Meta', data: [metaT1, metaT2], backgroundColor: 'rgba(220,38,38,0.15)', borderColor: 'rgba(220,38,38,0.5)', borderWidth: 1.5, borderRadius: 8, borderSkipped: false });

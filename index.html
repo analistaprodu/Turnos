@@ -124,10 +124,94 @@
     overflow: hidden;
   }
 
-  .sector-title { font-size: 38px; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; }
-  .sector-title span { font-size: 20px; font-weight: 600; color: #555; margin-left: 14px; letter-spacing: 0; }
+  /* ── VISTA RESUMEN ──────────────────────────────── */
+  #vista-resumen { display:flex; flex-direction:column; gap:1rem; height:100%; }
 
-  /* ── TARJETAS ───────────────────────────────────── */
+  .resumen-title { font-size: 38px; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; }
+  .resumen-title span { font-size: 20px; font-weight: 600; color: #555; margin-left: 14px; }
+
+  .resumen-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    flex: 1;
+  }
+
+  .resumen-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1.5px solid #e4e6ea;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .resumen-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+
+  .rc-corte::after    { background: #2563eb; }
+  .rc-pulido::after   { background: #7c3aed; }
+  .rc-perforado::after { background: #0891b2; }
+  .rc-templado::after  { background: #059669; }
+
+  .resumen-sector-nombre { font-size: 20px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; text-align:center; }
+  .resumen-total { font-size: 48px; font-weight: 700; line-height: 1; margin: 8px 0 2px; }
+  .resumen-unit  { font-size: 16px; font-weight: 700; color: #555; margin-bottom: 8px; }
+
+  .rc-corte .resumen-total    { color: #2563eb; }
+  .rc-pulido .resumen-total   { color: #7c3aed; }
+  .rc-perforado .resumen-total { color: #0891b2; }
+  .rc-templado .resumen-total  { color: #059669; }
+
+  .semaforo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 8px 0;
+    flex-shrink: 0;
+  }
+
+  .semaforo-verde   { background: #d1fae5; color: #065f46; box-shadow: 0 0 20px rgba(5,150,105,0.35); }
+  .semaforo-azul    { background: #dbeafe; color: #1e40af; box-shadow: 0 0 20px rgba(37,99,235,0.25); }
+  .semaforo-amarillo { background: #fef9c3; color: #854d0e; box-shadow: 0 0 20px rgba(234,179,8,0.3); }
+  .semaforo-rojo    { background: #fee2e2; color: #991b1b; box-shadow: 0 0 20px rgba(220,38,38,0.3); }
+  .semaforo-gris    { background: #f0f2f5; color: #aaa; }
+
+  .resumen-pct { font-size: 22px; font-weight: 800; color: #333; }
+  .resumen-meta-label { font-size: 13px; font-weight: 700; color: #777; margin-top: 2px; }
+
+  .pie-wrap { width: 130px; height: 130px; position: relative; margin: 4px 0; flex-shrink: 0; }
+
+  .mejor-turno-badge {
+    background: #1a1a2e;
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    margin-top: 6px;
+    width: 100%;
+  }
+  .mejor-turno-badge .trophy { font-size: 18px; }
+  .mejor-turno-badge .mejor-label { font-size: 12px; font-weight: 700; color: #aaa; letter-spacing: 0.08em; text-transform: uppercase; }
+  .mejor-turno-badge .mejor-val { font-size: 16px; font-weight: 800; color: #fff; }
+
+  /* ── VISTA SECTOR ───────────────────────────────── */
+  #vista-sector { display:none; flex-direction:column; gap:1rem; height:100%; }
+
+  .sector-title { font-size: 38px; font-weight: 700; color: #1a1a2e; letter-spacing: -0.5px; }
+  .sector-title span { font-size: 20px; font-weight: 600; color: #555; margin-left: 14px; }
+
   .cards-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -143,19 +227,13 @@
     overflow: hidden;
   }
 
-  .card::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-  }
-
+  .card::after { content:''; position:absolute; top:0; left:0; right:0; height:4px; }
   .card-manana::after { background: #2563eb; }
   .card-noche::after  { background: #7c3aed; }
   .card-total::after  { background: #059669; }
 
-  .card-label { font-size: 15px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #444; margin-bottom: 3px; }
-  .card-nombre { font-size: 24px; font-weight: 700; color: #222; margin-bottom: 2px; }
+  .card-label   { font-size: 15px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #444; margin-bottom: 3px; }
+  .card-nombre  { font-size: 24px; font-weight: 700; color: #222; margin-bottom: 2px; }
   .card-horario { font-size: 17px; color: #555; font-weight: 600; margin-bottom: 1.25rem; }
 
   .card-valor { font-size: 82px; font-weight: 700; line-height: 1; letter-spacing: -2px; }
@@ -179,7 +257,13 @@
   .badge-mid  { background:#fef9c3; color:#854d0e; }
   .badge-low  { background:#fee2e2; color:#991b1b; }
 
-  /* ── FILA INFERIOR ──────────────────────────────── */
+  /* semaforo grande en sector */
+  .semaforo-grande {
+    width: 100px; height: 100px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px; margin: 0 auto 8px;
+  }
+
   .bottom-row {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -189,12 +273,9 @@
   }
 
   .chart-card {
-    background: #fff;
-    border-radius: 14px;
-    padding: 1.25rem 1.75rem;
-    border: 1.5px solid #e4e6ea;
-    display: flex;
-    flex-direction: column;
+    background: #fff; border-radius: 14px;
+    padding: 1.25rem 1.75rem; border: 1.5px solid #e4e6ea;
+    display: flex; flex-direction: column;
   }
 
   .chart-card-title { font-size:15px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#333; margin-bottom:10px; }
@@ -206,27 +287,21 @@
   .chart-wrap { position:relative; flex:1; min-height:0; }
 
   .ritmos-card {
-    background: #fff;
-    border-radius: 14px;
+    background: #fff; border-radius: 14px;
     border: 1.5px solid #e4e6ea;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    display: flex; flex-direction: column; overflow: hidden;
   }
 
   .ritmo-row {
-    flex: 1;
-    padding: 1rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex: 1; padding: 1rem 1.5rem;
+    display: flex; flex-direction: column; justify-content: center;
     border-bottom: 1.5px solid #f0f2f5;
   }
   .ritmo-row:last-child { border-bottom: none; }
 
   .ritmo-label { font-size:14px; font-weight:800; letter-spacing:0.08em; text-transform:uppercase; color:#333; margin-bottom:4px; }
   .ritmo-valor { font-size:42px; font-weight:700; line-height:1; }
-  .ritmo-sub { font-size:15px; color:#444; font-weight:600; margin-top:3px; }
+  .ritmo-sub   { font-size:15px; color:#444; font-weight:600; margin-top:3px; }
 
   .ritmo-manana .ritmo-valor { color:#2563eb; }
   .ritmo-noche  .ritmo-valor { color:#7c3aed; }
@@ -281,91 +356,99 @@
 
 <!-- MAIN -->
 <div class="main">
-  <div class="sector-title" id="sector-title">—<span id="sector-fecha"></span></div>
 
-  <div class="cards-row">
-    <div class="card card-manana">
-      <div class="card-label">Turno mañana</div>
-      <div class="card-nombre">☀ Mañana</div>
-      <div class="card-horario">07:00 — 17:30 · 9.5 h efectivas</div>
-      <div class="card-valor" id="c-t1">—</div>
-      <div class="card-unit">mts²</div>
-      <div class="pct-row"><span id="c-t1-meta-label">—</span><strong id="c-t1-pct">—</strong></div>
-      <div class="bar"><div class="bar-fill" id="c-t1-bar" style="width:0%"></div></div>
-      <div id="c-t1-badge"></div>
+  <!-- VISTA RESUMEN -->
+  <div id="vista-resumen">
+    <div class="resumen-title">Resumen del día <span id="resumen-fecha"></span></div>
+    <div class="resumen-grid" id="resumen-grid"></div>
+  </div>
+
+  <!-- VISTA SECTOR -->
+  <div id="vista-sector">
+    <div class="sector-title" id="sector-title">—<span id="sector-fecha"></span></div>
+    <div class="cards-row">
+      <div class="card card-manana">
+        <div class="card-label">Turno mañana</div>
+        <div class="card-nombre">☀ Mañana</div>
+        <div class="card-horario">07:00 — 17:30 · 9.5 h efectivas</div>
+        <div class="card-valor" id="c-t1">—</div>
+        <div class="card-unit">mts²</div>
+        <div class="pct-row"><span id="c-t1-meta-label">—</span><strong id="c-t1-pct">—</strong></div>
+        <div class="bar"><div class="bar-fill" id="c-t1-bar" style="width:0%"></div></div>
+        <div id="c-t1-badge"></div>
+      </div>
+      <div class="card card-noche">
+        <div class="card-label">Turno noche</div>
+        <div class="card-nombre">☾ Noche</div>
+        <div class="card-horario">22:00 — 07:00 · 8 h efectivas</div>
+        <div class="card-valor" id="c-t2">—</div>
+        <div class="card-unit">mts²</div>
+        <div class="pct-row"><span id="c-t2-meta-label">—</span><strong id="c-t2-pct">—</strong></div>
+        <div class="bar"><div class="bar-fill" id="c-t2-bar" style="width:0%"></div></div>
+        <div id="c-t2-badge"></div>
+      </div>
+      <div class="card card-total">
+        <div class="card-label">Total del día</div>
+        <div class="card-nombre">Acumulado</div>
+        <div class="card-horario" id="c-meta-label">—</div>
+        <div class="card-valor" id="c-total">—</div>
+        <div class="card-unit">mts²</div>
+        <div class="pct-row"><span id="c-total-meta-label">—</span><strong id="c-total-pct">—</strong></div>
+        <div class="bar"><div class="bar-fill" id="c-total-bar" style="width:0%"></div></div>
+        <div id="c-total-badge"></div>
+      </div>
     </div>
-
-    <div class="card card-noche">
-      <div class="card-label">Turno noche</div>
-      <div class="card-nombre">☾ Noche</div>
-      <div class="card-horario">22:00 — 07:00 · 8 h efectivas</div>
-      <div class="card-valor" id="c-t2">—</div>
-      <div class="card-unit">mts²</div>
-      <div class="pct-row"><span id="c-t2-meta-label">—</span><strong id="c-t2-pct">—</strong></div>
-      <div class="bar"><div class="bar-fill" id="c-t2-bar" style="width:0%"></div></div>
-      <div id="c-t2-badge"></div>
-    </div>
-
-    <div class="card card-total">
-      <div class="card-label">Total del día</div>
-      <div class="card-nombre">Acumulado</div>
-      <div class="card-horario" id="c-meta-label">—</div>
-      <div class="card-valor" id="c-total">—</div>
-      <div class="card-unit">mts²</div>
-      <div class="pct-row"><span id="c-total-meta-label">—</span><strong id="c-total-pct">—</strong></div>
-      <div class="bar"><div class="bar-fill" id="c-total-bar" style="width:0%"></div></div>
-      <div id="c-total-badge"></div>
+    <div class="bottom-row">
+      <div class="chart-card">
+        <div class="chart-card-title">Comparación por turno</div>
+        <div class="legend">
+          <span><span class="legend-sq" style="background:#2563eb"></span>Turno mañana</span>
+          <span><span class="legend-sq" style="background:#7c3aed"></span>Turno noche</span>
+          <span id="legend-meta-wrap" style="display:none"><span class="legend-sq" style="background:rgba(220,38,38,0.4)"></span>Meta</span>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="barChart" role="img" aria-label="Producción por turno">Gráfico.</canvas>
+        </div>
+      </div>
+      <div class="ritmos-card">
+        <div class="ritmo-row ritmo-manana">
+          <div class="ritmo-label">Ritmo mañana</div>
+          <div class="ritmo-valor" id="r-uh1">—</div>
+          <div class="ritmo-sub">mts²/hora · 9.5 h efectivas</div>
+        </div>
+        <div class="ritmo-row ritmo-noche">
+          <div class="ritmo-label">Ritmo noche</div>
+          <div class="ritmo-valor" id="r-uh2">—</div>
+          <div class="ritmo-sub">mts²/hora · 8 h efectivas</div>
+        </div>
+        <div class="ritmo-row ritmo-mejor">
+          <div class="ritmo-label">🏆 Mejor turno</div>
+          <div class="ritmo-valor" id="r-mejor">—</div>
+          <div class="ritmo-sub" id="r-mejor-dif">—</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="bottom-row">
-    <div class="chart-card">
-      <div class="chart-card-title">Comparación por turno</div>
-      <div class="legend">
-        <span><span class="legend-sq" style="background:#2563eb"></span>Turno mañana</span>
-        <span><span class="legend-sq" style="background:#7c3aed"></span>Turno noche</span>
-        <span id="legend-meta-wrap" style="display:none"><span class="legend-sq" style="background:rgba(220,38,38,0.4)"></span>Meta</span>
-      </div>
-      <div class="chart-wrap">
-        <canvas id="barChart" role="img" aria-label="Producción por turno">Gráfico.</canvas>
-      </div>
-    </div>
-
-    <div class="ritmos-card">
-      <div class="ritmo-row ritmo-manana">
-        <div class="ritmo-label">Ritmo mañana</div>
-        <div class="ritmo-valor" id="r-uh1">—</div>
-        <div class="ritmo-sub">mts²/hora · 9.5 h efectivas</div>
-      </div>
-      <div class="ritmo-row ritmo-noche">
-        <div class="ritmo-label">Ritmo noche</div>
-        <div class="ritmo-valor" id="r-uh2">—</div>
-        <div class="ritmo-sub">mts²/hora · 8 h efectivas</div>
-      </div>
-      <div class="ritmo-row ritmo-mejor">
-        <div class="ritmo-label">Mejor turno</div>
-        <div class="ritmo-valor" id="r-mejor">—</div>
-        <div class="ritmo-sub" id="r-mejor-dif">—</div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>
 const SECTORES = [
-  { id: 'corte',     nombre: 'Corte',     meta: null },
-  { id: 'pulido',    nombre: 'Pulido',    meta: null },
-  { id: 'perforado', nombre: 'Perforado', meta: null },
+  { id: 'resumen',   nombre: 'Resumen',   meta: null, esResumen: true },
+  { id: 'corte',     nombre: 'Corte',     meta: 1000 },
+  { id: 'pulido',    nombre: 'Pulido',    meta: 500  },
+  { id: 'perforado', nombre: 'Perforado', meta: 300  },
   { id: 'templado',  nombre: 'Templado',  meta: 1000 }
 ];
 
+const COLORES = { corte:'#2563eb', pulido:'#7c3aed', perforado:'#0891b2', templado:'#059669' };
 const H1 = 9.5, H2 = 8;
 
 let datos = {};
 let fechaGlobal = '';
 let horaGuardado = '';
 let sectorActual = 0;
-let editorSector = 0;
+let editorSector = 1;
 
 try {
   const s = localStorage.getItem('prod-datos');
@@ -387,7 +470,7 @@ function iniciarTimer() {
     if (timerSeg <= 0) {
       sectorActual = (sectorActual + 1) % SECTORES.length;
       timerSeg = INTERVALO;
-      renderSector();
+      renderVista();
       renderPills();
     }
   }, 1000);
@@ -407,16 +490,122 @@ function renderPills() {
     const p = document.createElement('button');
     p.className = 'sector-pill' + (i === sectorActual ? ' active' : '');
     p.textContent = s.nombre;
-    p.onclick = () => { sectorActual = i; renderSector(); renderPills(); iniciarTimer(); };
+    p.onclick = () => { sectorActual = i; renderVista(); renderPills(); iniciarTimer(); };
     wrap.appendChild(p);
   });
 }
 
-// ── RENDER ────────────────────────────────────────────
+// ── SEMÁFORO ─────────────────────────────────────────
+function semaforoClase(pct) {
+  if (pct === null) return 'semaforo-gris';
+  if (pct >= 100) return 'semaforo-verde';
+  if (pct >= 90)  return 'semaforo-azul';
+  if (pct >= 80)  return 'semaforo-amarillo';
+  return 'semaforo-rojo';
+}
+
+function semaforoEmoji(pct) {
+  if (pct === null) return '—';
+  if (pct >= 100) return '✓';
+  if (pct >= 90)  return '↑';
+  if (pct >= 80)  return '~';
+  return '↓';
+}
+
+function badgeHTML(pct) {
+  if (pct >= 100) return '<span class="badge badge-win">✓ Meta cumplida</span>';
+  if (pct >= 90)  return '<span class="badge badge-high">Alto</span>';
+  if (pct >= 80)  return '<span class="badge badge-mid">Medio</span>';
+  return '<span class="badge badge-low">Bajo meta</span>';
+}
+
+// ── VISTA PRINCIPAL ───────────────────────────────────
+function renderVista() {
+  const s = SECTORES[sectorActual];
+  document.getElementById('update-info').textContent =
+    fechaGlobal && horaGuardado
+      ? 'Datos cargados el ' + fechaGlobal + ' a las ' + horaGuardado
+      : fechaGlobal ? 'Datos de ' + fechaGlobal : 'Sin datos cargados';
+
+  if (s.esResumen) {
+    document.getElementById('vista-resumen').style.display = 'flex';
+    document.getElementById('vista-sector').style.display = 'none';
+    renderResumen();
+  } else {
+    document.getElementById('vista-resumen').style.display = 'none';
+    document.getElementById('vista-sector').style.display = 'flex';
+    renderSector(s);
+  }
+}
+
+// ── RESUMEN ───────────────────────────────────────────
+let pieCharts = {};
+
+function renderResumen() {
+  document.getElementById('resumen-fecha').textContent = fechaGlobal || '';
+  const grid = document.getElementById('resumen-grid');
+  grid.innerHTML = '';
+
+  Object.values(pieCharts).forEach(c => { try { c.destroy(); } catch(e){} });
+  pieCharts = {};
+
+  const sectores = SECTORES.filter(s => !s.esResumen);
+  sectores.forEach(s => {
+    const d = datos[s.id] || { t1: 0, t2: 0 };
+    const total = d.t1 + d.t2;
+    const pct = s.meta && total > 0 ? Math.round((total / s.meta) * 100) : null;
+    const uh1 = d.t1 > 0 ? (d.t1/H1).toFixed(1) : null;
+    const uh2 = d.t2 > 0 ? (d.t2/H2).toFixed(1) : null;
+    const mejorTurno = uh1 && uh2
+      ? (parseFloat(uh1) >= parseFloat(uh2) ? '☀ Mañana' : '☾ Noche')
+      : (uh1 ? '☀ Mañana' : (uh2 ? '☾ Noche' : null));
+
+    const card = document.createElement('div');
+    card.className = 'resumen-card rc-' + s.id;
+    card.innerHTML = `
+      <div class="resumen-sector-nombre">${s.nombre}</div>
+      <div class="resumen-total">${total > 0 ? total.toLocaleString() : '—'}</div>
+      <div class="resumen-unit">mts²${s.meta ? ' / meta ' + s.meta.toLocaleString() : ''}</div>
+      <div class="semaforo ${semaforoClase(pct)}" id="sem-${s.id}">${semaforoEmoji(pct)}</div>
+      <div class="resumen-pct">${pct !== null ? pct + '%' : 'Sin meta'}</div>
+      <div class="resumen-meta-label">${pct !== null ? 'de la meta diaria' : ''}</div>
+      <div class="pie-wrap"><canvas id="pie-${s.id}"></canvas></div>
+      ${mejorTurno ? `<div class="mejor-turno-badge"><div class="trophy">🏆</div><div class="mejor-label">Mejor ritmo</div><div class="mejor-val">${mejorTurno}</div></div>` : ''}
+    `;
+    grid.appendChild(card);
+
+    // Torta
+    setTimeout(() => {
+      const ctx = document.getElementById('pie-' + s.id);
+      if (!ctx) return;
+      const restante = s.meta ? Math.max(s.meta - total, 0) : 0;
+      pieCharts[s.id] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: total > 0
+              ? (s.meta ? [Math.min(total, s.meta), restante] : [d.t1 || 1, d.t2 || 1])
+              : [1],
+            backgroundColor: total > 0
+              ? (s.meta ? [COLORES[s.id], '#e8eaed'] : [COLORES[s.id], '#7c3aed'])
+              : ['#e8eaed'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: true, cutout: '65%',
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          animation: { duration: 400 }
+        }
+      });
+    }, 50);
+  });
+}
+
+// ── SECTOR DETALLE ────────────────────────────────────
 let barChart = null;
 
-function renderSector() {
-  const s = SECTORES[sectorActual];
+function renderSector(s) {
   const d = datos[s.id] || { t1: 0, t2: 0 };
   const { t1, t2 } = d;
   const total = t1 + t2;
@@ -520,37 +709,24 @@ function renderSector() {
       }
     }
   });
-
-  // Update info
-  document.getElementById('update-info').textContent =
-    fechaGlobal && horaGuardado
-      ? 'Datos cargados el ' + fechaGlobal + ' a las ' + horaGuardado
-      : fechaGlobal ? 'Datos de ' + fechaGlobal : 'Sin datos cargados';
-}
-
-function badgeHTML(pct) {
-  if (pct >= 100) return '<span class="badge badge-win">✓ Meta cumplida</span>';
-  if (pct >= 90)  return '<span class="badge badge-high">Alto</span>';
-  if (pct >= 80)  return '<span class="badge badge-mid">Medio</span>';
-  return '<span class="badge badge-low">Bajo meta</span>';
 }
 
 // ── EDITOR ───────────────────────────────────────────
 function buildEditorTabs() {
   const wrap = document.getElementById('sector-tabs');
   wrap.innerHTML = '';
-  SECTORES.forEach((s, i) => {
+  SECTORES.filter(s => !s.esResumen).forEach((s, i) => {
     const t = document.createElement('div');
-    t.className = 'sector-tab' + (i === editorSector ? ' active' : '');
+    t.className = 'sector-tab' + (i === editorSector - 1 ? ' active' : '');
     t.textContent = s.nombre;
-    t.onclick = () => { saveEditorCurrent(); editorSector = i; loadEditorSector(); buildEditorTabs(); };
+    t.onclick = () => { saveEditorCurrent(); editorSector = i + 1; loadEditorSector(); buildEditorTabs(); };
     wrap.appendChild(t);
   });
 }
 
 function loadEditorSector() {
   const s = SECTORES[editorSector];
-  document.getElementById('editor-sector-name').textContent = 'Sector: ' + s.nombre + (s.meta ? ' · Meta ' + s.meta + ' mts²' : ' · Sin meta');
+  document.getElementById('editor-sector-name').textContent = 'Sector: ' + s.nombre + (s.meta ? ' · Meta ' + s.meta.toLocaleString() + ' mts²' : ' · Sin meta');
   const d = datos[s.id] || { t1: 0, t2: 0 };
   document.getElementById('ed-t1').value = d.t1 || '';
   document.getElementById('ed-t2').value = d.t2 || '';
@@ -558,6 +734,7 @@ function loadEditorSector() {
 
 function saveEditorCurrent() {
   const s = SECTORES[editorSector];
+  if (!s || s.esResumen) return;
   datos[s.id] = {
     t1: parseFloat(document.getElementById('ed-t1').value) || 0,
     t2: parseFloat(document.getElementById('ed-t2').value) || 0
@@ -566,14 +743,17 @@ function saveEditorCurrent() {
 
 function navSector(dir) {
   saveEditorCurrent();
-  editorSector = (editorSector + dir + SECTORES.length) % SECTORES.length;
-  loadEditorSector();
-  buildEditorTabs();
-  document.getElementById('ed-t1').focus();
+  const newIdx = editorSector + dir;
+  if (newIdx >= 1 && newIdx < SECTORES.length) {
+    editorSector = newIdx;
+    loadEditorSector();
+    buildEditorTabs();
+    document.getElementById('ed-t1').focus();
+  }
 }
 
 function abrirEditor(idx) {
-  editorSector = idx !== undefined ? idx : sectorActual;
+  editorSector = 1;
   document.getElementById('ed-fecha').value = fechaGlobal;
   loadEditorSector();
   buildEditorTabs();
@@ -597,15 +777,25 @@ function guardarYSiguiente() {
     document.getElementById('ed-t1').focus();
   } else {
     cerrarEditor();
-    renderSector();
+    renderVista();
   }
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarEditor(); });
 
+// ── ANTI-APAGADO ─────────────────────────────────────
+const antiSleep = document.createElement('div');
+antiSleep.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0.01;pointer-events:none;bottom:0;right:0;';
+document.body.appendChild(antiSleep);
+let toggle = false;
+setInterval(() => {
+  toggle = !toggle;
+  antiSleep.style.transform = toggle ? 'translate(1px,1px)' : 'translate(0,0)';
+}, 30000);
+
 // ── INIT ─────────────────────────────────────────────
 renderPills();
-renderSector();
+renderVista();
 iniciarTimer();
 </script>
 </body>

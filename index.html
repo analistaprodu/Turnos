@@ -809,6 +809,10 @@ try {
   document.addEventListener('click', () => vid.play().catch(() => {}), { once: true });
 } catch(e) {}
 
+// ── AUTO-RECARGA ─────────────────────────────────────
+// Recarga la página cada 5 minutos para evitar screensaver y tomar datos nuevos
+setTimeout(() => { location.reload(); }, 5 * 60 * 1000);
+
 // ── INIT ─────────────────────────────────────────────
 renderPills();
 renderVista();

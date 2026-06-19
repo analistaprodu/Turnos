@@ -784,14 +784,30 @@ function guardarYSiguiente() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarEditor(); });
 
 // ── ANTI-APAGADO ─────────────────────────────────────
-const antiSleep = document.createElement('div');
-antiSleep.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0.01;pointer-events:none;bottom:0;right:0;';
-document.body.appendChild(antiSleep);
-let toggle = false;
+// Canvas en loop — genera video sintético para que la TV no detecte inactividad
+const cvs = document.createElement('canvas');
+cvs.width = 2; cvs.height = 2;
+cvs.style.cssText = 'position:fixed;width:2px;height:2px;opacity:0.01;pointer-events:none;bottom:0;right:0;';
+document.body.appendChild(cvs);
+const ctx2d = cvs.getContext('2d');
+let frameCount = 0;
 setInterval(() => {
-  toggle = !toggle;
-  antiSleep.style.transform = toggle ? 'translate(1px,1px)' : 'translate(0,0)';
-}, 30000);
+  ctx2d.fillStyle = frameCount % 2 === 0 ? '#000001' : '#010000';
+  ctx2d.fillRect(0, 0, 2, 2);
+  frameCount++;
+}, 2000);
+
+// Video stream desde canvas (mantiene TV despierta)
+try {
+  const stream = cvs.captureStream(1);
+  const vid = document.createElement('video');
+  vid.muted = true; vid.loop = true;
+  vid.style.cssText = 'position:fixed;width:2px;height:2px;opacity:0.01;pointer-events:none;bottom:2px;right:0;';
+  vid.srcObject = stream;
+  document.body.appendChild(vid);
+  vid.play().catch(() => {});
+  document.addEventListener('click', () => vid.play().catch(() => {}), { once: true });
+} catch(e) {}
 
 // ── INIT ─────────────────────────────────────────────
 renderPills();
